@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxf6ocg6immo3"]
+
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_ba024"]
+[ext_resource type="Texture2D" uid="uid://dbdc8tsbaosgr" path="res://graphics/road.jpg" id="1_vivud"]
+[ext_resource type="PackedScene" uid="uid://n3kdbsybsc7w" path="res://scenes/car.tscn" id="2_sd4o0"]
+[ext_resource type="Texture2D" uid="uid://b80v27vfy283s" path="res://graphics/road 2.jpg" id="3_1lafg"]
+[ext_resource type="AudioStream" uid="uid://b6vj8gbd7sm5b" path="res://audio/music.wav" id="4_0t4hc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_10j3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vivud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1lafg")
+}],
+"loop": true,
+"name": &"road",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b85l"]
+size = Vector2(949, 797)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_ba024")
+
+[node name="Roud" type="Area2D" parent="."]
+
+[node name="RoudImage" type="AnimatedSprite2D" parent="Roud"]
+position = Vector2(565.5, 127)
+scale = Vector2(0.995766, 0.8)
+sprite_frames = SubResource("SpriteFrames_10j3o")
+animation = &"road"
+frame = 1
+frame_progress = 0.919815
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roud"]
+position = Vector2(584.5, 400.5)
+shape = SubResource("RectangleShape2D_0b85l")
+
+[node name="Car" parent="." instance=ExtResource("2_sd4o0")]
+position = Vector2(578, 669)
+
+[node name="CarsStartPositions" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(262, -89)
+
+[node name="Marker2D2" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(424, -83)
+
+[node name="Marker2D3" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(858, -96)
+
+[node name="Marker2D4" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(707, -94)
+
+[node name="Marker2D5" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(571, -94)
+
+[node name="Marker2D6" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(1019, -96)
+
+[node name="Marker2D7" type="Marker2D" parent="CarsStartPositions"]
+position = Vector2(117, -90)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="GameOver" type="Label" parent="."]
+offset_left = 489.0
+offset_top = 182.0
+offset_right = 586.0
+offset_bottom = 205.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 558.0
+offset_top = 400.0
+offset_right = 609.0
+offset_bottom = 431.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "התחל"
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="Score" type="Label" parent="."]
+offset_left = 574.0
+offset_top = 42.0
+offset_right = 595.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0t4hc")
+
+[connection signal="body_exited" from="Roud" to="." method="_on_roud_body_exited"]
+[connection signal="car_entered" from="Car" to="." method="_on_car_car_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

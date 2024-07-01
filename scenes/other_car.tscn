@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://wxiv6fcn028r"]
+
+[ext_resource type="Script" path="res://scenes/other_car.gd" id="1_7kt53"]
+[ext_resource type="Texture2D" uid="uid://bx01jdelen340" path="res://graphics/car.png" id="1_08u0e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ta30v"]
+size = Vector2(73.75, 178)
+
+[node name="OtherCar" type="CharacterBody2D"]
+script = ExtResource("1_7kt53")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_08u0e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ta30v")
